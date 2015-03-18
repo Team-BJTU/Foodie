@@ -1,13 +1,24 @@
+var debug = require('debug')('server');
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mongoose = require("mongoose");
+var models = require("./mongo/collectionsModels");
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var restaurants = require('./routes/restaurants');
+var reservations = require('./routes/reservations');
+var momentums = require('./routes/momentums');
+var meals = require('./routes/meals');
+var pictures = require('./routes/pictures');
 
+process.env.dbUrl = "mongodb://" + process.env.npm_package_database_host + "/" + process.env.npm_package_database_dbname;
+mongoose.connect(process.env.dbUrl);
+
+var db = mongoose.connection;
 var app = express();
 
 // view engine setup
@@ -21,8 +32,25 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/// Init database access
+app.use(function(req, res, next) {
+    res.contentType('application/json');
+    db.on("error", console.error.bind(console, "Database Connection Error: "));
+    db.once("open", function() {
+        console.log("You're now connected to " + process.env.dbUrl);
+    });
+    req.db = db;
+    req.models = models;
+    next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/restaurants', restaurants);
+app.use('/reservations', reservations);
+app.use('/momentums', momentums);
+app.use('/meals', meals);
+app.use('/picures', picures);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
