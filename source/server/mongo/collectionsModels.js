@@ -12,15 +12,17 @@ dbModels.Users = mongoose.model("user", mongoose.Schema({
 }));
 
 dbModels.Restaurants = mongoose.model("restaurant", mongoose.Schema({
-	name: String,
-	mail: String,
-	phone: Number,
-	adress: String,
-	city: String,
-	country: String,
+	name: {type: String, required: true},
+	mail: {type: String, required: true},
+	phone: { type: Number, required: true},
+	adress: {type: String, required: true},
+	city: {type: String, required: true},
+	zipcode: {type: Number, required: true},
+	country: {type: String, required: true},
 	nbSeat: Number,
 	description: String,
-	user_id: String,
+	user_id: {type: String, required: true},
+	category_restaurant_id: String,
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
 }));
@@ -41,13 +43,17 @@ dbModels.Meals = mongoose.model("meal", mongoose.Schema({
 	description: String,
 	mark: Number,
 	restaurant_id: Number,
-	category_id: Number,
+	category_meal_id: Number,
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
 }));
 
-dbModels.Categories = mongoose.model("category", mongoose.Schema({
-	name: String
+dbModels.MealCategories = mongoose.model("mealCategory", mongoose.Schema({
+	name: { type: String, required: true}
+}));
+
+dbModels.RestaurantCategories = mongoose.model("restaurantCategory", mongoose.Schema({
+	name: { type: String, required: true}
 }));
 
 dbModels.Pictures = mongoose.model("picture", mongoose.Schema({
