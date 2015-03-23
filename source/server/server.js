@@ -10,10 +10,10 @@ var models = require("./mongo/collectionsModels");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var restaurants = require('./routes/restaurants');
-var reservations = require('./routes/reservations');
-var momentums = require('./routes/momentums');
-var meals = require('./routes/meals');
-var pictures = require('./routes/pictures');
+// var reservations = require('./routes/reservations');
+// var momentums = require('./routes/momentums');
+// var meals = require('./routes/meals');
+// var pictures = require('./routes/pictures');
 
 process.env.dbUrl = "mongodb://" + process.env.npm_package_database_host + "/" + process.env.npm_package_database_dbname;
 mongoose.connect(process.env.dbUrl);
@@ -47,10 +47,10 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/restaurants', restaurants);
-app.use('/reservations', reservations);
-app.use('/momentums', momentums);
-app.use('/meals', meals);
-app.use('/picures', picures);
+// app.use('/reservations', reservations);
+// app.use('/momentums', momentums);
+// app.use('/meals', meals);
+// app.use('/picures', picures);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

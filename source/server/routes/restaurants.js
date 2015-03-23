@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoRest= require("../mongo/restaurantsMongoMod");
 
 /// POST REQUEST
-router.post("/AddRestaurant", function(req, res) {
+router.post("/new", function(req, res) {
 	mongoRest.addRestaurant(req.models.Restaurants, req.body, function(err, row) {
 		if (err)
 			return res.send(400, {error: err});
@@ -13,11 +13,11 @@ router.post("/AddRestaurant", function(req, res) {
 
 /// GET REQUEST
 
-router.get("/GetRestaurants", function(req, res){
+router.get("/all", function(req, res){
 
 });
 
-router.get("/GetRestaurantById/:rest_id", function(req, res){
+router.get("/id/:rest_id", function(req, res){
 
 });
 
@@ -25,22 +25,24 @@ router.get("/GetRestaurantById/:rest_id", function(req, res){
 
 // });
 
-router.get("/GetRestaurantByCategory/:category_id", function(req, res){
+router.get("/category/:category_id", function(req, res){
 
 });
 
-router.get("/GetRestaurantByCity/:city", function(req, res){
+router.get("/city/:city", function(req, res){
 
 });
 
 /// PUT REQUEST
 
-router.put("/UpdateRestaurant", function(req, res){
+router.put("/update", function(req, res){
 
 });
 
 /// DELETE REQUEST
 
-router.delete("/RemoveRestaurant/:rest_id", function(req, res){
+router.delete("/remove/:rest_id", function(req, res){
 
 });
+
+module.exports = router;

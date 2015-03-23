@@ -3,17 +3,17 @@ var router = express.Router();
 var mongoMeal= require("../mongo/mealsMongoMod");
 
 /// POST REQUEST
-router.post("/AddMeal", function(req, res) {
+router.post("/new", function(req, res) {
 
 });
 
 /// GET REQUEST
 
-router.get("/GetMeals", function(req, res){
+router.get("/all", function(req, res){
 
 });
 
-router.get("/GetMealById/:meal_id", function(req, res){
+router.get("/id/:meal_id", function(req, res){
 
 });
 
@@ -21,22 +21,22 @@ router.get("/GetMealById/:meal_id", function(req, res){
 
 // });
 
-router.get("/GetMealByCategory/:category_id", function(req, res){
+router.get("/category/:category_id", function(req, res){
 
 });
 
-router.get("/GetMealByRestaurant/:rest_id", function(req, res){
+router.get("/restaurant/:rest_id", function(req, res){
 
 });
 
 /// PUT REQUEST
 
-router.put("/UpdateMeal", function(req, res){
+router.put("/update", function(req, res){
 
 });
 
 /// DELETE REQUEST
 
-router.delete("/RemoveMeal/:meal_id", function(req, res){
+router.delete("/remove/:meal_id", function(req, res){
 
 });
