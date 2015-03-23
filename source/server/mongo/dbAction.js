@@ -56,3 +56,21 @@ module.exports.Remove = function(model, id, callback) {
 		}
 	});
 };
+
+module.exports.getAll = function(model, callback) {
+	Get(model, {}, function (err, results) {
+		if (err)
+			return callback(err);
+		return callback(err, results);
+	});
+};
+
+module.exports.getById = function(model, id, callback) {
+	Get(model, {_id: id}, function (err, result) {
+		if (err)
+			return callback(err);
+		if (result.length > 0)
+			return callback("Problem in the database (multiple id), please contact the administrator");
+		return callback(err, result);
+	});
+};
