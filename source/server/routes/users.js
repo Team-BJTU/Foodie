@@ -31,6 +31,7 @@ router.post('/login',  function(req, res, next) {
  			return ;
       });
       delete user["password"];
+      // Delete password / is_admin / is_active
       return res.send(200, user);
     });
   })(req, res, next);
@@ -63,29 +64,34 @@ router.put('/update/:id', function(req, res)
 
 /* GET infos of user currenty logged in */
 router.get('/profil/me', function(req, res){
+	// Delete password / is_admin / is_active
 	if (req.user)
- 		return res.send(200, {message: req.user});
+ 		return res.send(200, req.user);
  	else
  		return res.send(400, {error: "No user currently logged in."});
 });
 
 /* GET logged user info and momentums */
 router.get('/me', function(req, res) {
+	// Delete password / is_admin / is_active
 });
 
 /* GET user info and momentums */
-router.get('/:id', function(req, res) {s
+router.get('/:id', function(req, res) {
+	// Delete password / is_admin / is_active
 });
 
 /* GET user listing. */
 router.get('/profil/all', function(req, res)
 {
+	// Delete password / is_admin / is_active
 	// Wait for listing operations.
 });
 
 /* GET user with _id == :id */
 router.get('/profil/:id', function(req, res)
 {
+	// Delete password / is_admin / is_active
 	userUtils.getUser(req.models.Users, {_id: req.params.id, is_active : true}, function(err, row) {
 		if (err)
 			return res.send(400, {error: err});

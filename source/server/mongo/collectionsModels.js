@@ -64,10 +64,12 @@ dbModels.RestaurantCategories = mongoose.model("restaurantCategory", mongoose.Sc
 }));
 
 dbModels.Pictures = mongoose.model("picture", mongoose.Schema({
-	type: String,
-	name: String,
-	path: String,
-	target_id: String,
+	name: {type : String, required: true},
+	path: {type : String, required: true},
+	size: {type: Number, required: true},
+	target_id: {type : String, required: true},
+	target_type: {type: String, required: true},
+	user_id : {type: String, required: true},
 	date_created : { type : Date, default : Date.now },
 }));
 

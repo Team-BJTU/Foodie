@@ -8,6 +8,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 var mongoose = require("mongoose");
 var models = require("./mongo/collectionsModels");
 var routes = require('./routes/index');
@@ -16,6 +17,7 @@ var mealtags = require('./routes/mealtags');
 var restaurants = require('./routes/restaurants');
 // var reservations = require('./routes/reservations');
 var momentums = require('./routes/momentums');
+var medias = require('./routes/medias');
 // var meals = require('./routes/meals');
 // var pictures = require('./routes/pictures');
 
@@ -65,6 +67,42 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+/* Multer configuration */
+/* TODO
+    Find a filesystem manager to create directories and delete files
+*/
+app.use(multer({dest : './uploads/',
+    rename : function(fieldname, filename, req, res){
+        return filename + Date.now();
+    },
+
+    /*changeDest: function(dest, req, res) {
+       var stat = null;
+        dest = dest + '/test';
+        try {
+            // using fs.statSync; NOTE that fs.existsSync is now deprecated; fs.accessSync could be used but is only nodejs >= v0.12.0
+            stat = fs.statSync(dest);
+        } catch(err) {
+            // for nested folders, look at npm package "mkdirp"
+            fs.mkdirSync(dest);
+        }
+        if (stat && !stat.isDirectory()) {
+            // Woh! This file/link/etc already exists, so isn't a directory. Can't save in it. Handle appropriately.
+            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
+        }
+        return dest;
+    },
+*/
+    onFileUploadStart : function(file)
+    {
+        // Check file.originalName for allowed formats
+    },
+
+    onFileUploadComplete : function() {
+
+    }
+}));
+
 /// Init database access
 app.use(function(req, res, next) {
     res.contentType('application/json');
@@ -82,6 +120,7 @@ app.use('/foodie', users);
 app.use('/restaurants', restaurants);
 app.use('/mealtags', mealtags);
 app.use('/momentums', momentums);
+app.use('/media', medias);
 /*app.use('/reservations', reservations);
 
 
