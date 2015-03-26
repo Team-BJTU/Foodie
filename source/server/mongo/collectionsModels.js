@@ -38,12 +38,12 @@ dbModels.Reservations = mongoose.model("reservation", mongoose.Schema({
 }));
 
 dbModels.Meals = mongoose.model("meal", mongoose.Schema({
-	name: String,
-	price: Number,
+	name: { type: String, required: true},
+	price: { type: Number, required: true},
 	description: String,
 	mark: Number,
-	restaurant_id: Number,
-	category_meal_id: Number,
+	restaurant_id: { type: Number, required: true},
+	category_meal_id: { type: Number, required: true},
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
 }));

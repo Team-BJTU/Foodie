@@ -88,6 +88,8 @@ module.exports.updateRestaurant = function (models, rest_id, values, callback) {
 						return callback(err);
 					if (result.length == 0)
 						return callback("User doesn't exist");
+
+					values.date_updated = new Date();
 					dbAction.Update(models.Restaurants, rest_id, values, function (err, row) {
 						if (err)
 							return callback(err);
@@ -101,6 +103,7 @@ module.exports.updateRestaurant = function (models, rest_id, values, callback) {
 					return callback(err);
 				if (result.length == 0)
 					return callback("User doesn't exist");
+				values.date_updated = new Date();	
 				dbAction.Update(models.Restaurants, rest_id, values, function (err, row) {
 					if (err)
 						return callback(err);
