@@ -23,8 +23,8 @@ module.exports.newUser = function(model, params, callback)
 			return callback(err);
 		else if (row.length != 0)
 			return callback("Username already taken");
-		delete params['is_admin'];
-		delete params['is_active'];
+		params['is_admin'] = false;
+		params['is_active'] = true;
 		dbAction.Add(model, params, callback);
 	});
 };

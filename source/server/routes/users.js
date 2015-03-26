@@ -53,8 +53,10 @@ router.put('/update/:id', function(req, res)
 	delete req.body['date_created'];
 	delete req.body['date_updated'];
 	delete req.body['is_admin'];
-	if (!req.user || req.user._id != req.params.id || req.user.is_admin == false)
-		return res.send(400, {error : "Permission denied"});
+	if (!req.user)
+		return res.send(400, {error : "You must be logged."});
+	if (req.user._id != req.params.id && req.user.is_admin != true)
+		return res.send(400, {error : "Permission denied."});
 	userUtils.updateUser(req.models.Users, req.params.id, req.body, function(err, row) {
 		if (err)
 			return res.send(400, {error : err});
@@ -92,6 +94,8 @@ router.get('/profil/all', function(req, res)
 router.get('/profil/:id', function(req, res)
 {
 	// Delete password / is_admin / is_active
+	if (!req.user)
+		return res.send(400, {error : "Permission denied."});
 	userUtils.getUser(req.models.Users, {_id: req.params.id, is_active : true}, function(err, row) {
 		if (err)
 			return res.send(400, {error: err});
@@ -101,6 +105,10 @@ router.get('/profil/:id', function(req, res)
 
 /* DELETE user with _id = :id */
 router.put('/delete/:id', function(req, res){
+	if (!req.user)
+		return res.send(400, {error : "You must be logged."});
+	if (req.user._id != req.params.id && req.user.is_admin != true)
+		return res.send(400, {error : "Permission denied."});
 	userUtils.deleteUser(req.models.Users, {_id: req.params.id, is_active : true}, function(err, row)
 	{
 		if (err)

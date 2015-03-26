@@ -45,21 +45,40 @@ router.post('/momentum/new/:target_id', function(req, res) {
 	});
 });
 
-router.post('/user/new/:target_id', function(req, res) {
-	//Check if user has a profile picture
-		//If yes delete it then continue
-	//New Entry in picture db
-	//Update user
+router.post('/user/new', function(req, res) {
+	
+	if(!req.files)
+		return res.send(400, {error : {message : "Operation unsuccessful."}});
+	else if (!req.user)
+		return res.send(400, {error : {message : "You must be logged."}});
+	if (Object.keys(req.files).length > 1)
+		return res.send(400, {error : {message : "You can only upload one profil picture.s"}});
+	
+	mediasUtils.addUserMedia(req.models, req.user, req.files[Object.keys(req.files)[0]], function(err, row)
+	{
+		if (err)
+			return res.send(400, {error : err});
+		return (res.send(200, {message : "Upload successful."}));	
+	});
 });
 
 router.delete('/media/:id', function(req, res) {
 	if (!req.user)
-		return (res.send(400, {error : { message : "Permission denied. You must be logged."}}));
-	mediasUtils.deleteMedia(req.models, req.params.id, req, function(err, row) {
+		return (res.send(400, {error : { message : "You must be logged."}}));
+	mediasUtils.deleteMedia(req.models, {_id : req.params.id}, req, function(err, row) {
 		if (err)
 			return res.send(400, {error : err});
 		return res.send(200, {message : "Operation successful"});
 	});
 });
 
+router.delete('/user', function(req, res) {
+	if (!req.user)
+		return (res.send(400, {error : { message : "You must be logged."}}));
+	mediasUtils.deleteMedia(req.models, {user_id : req.user._id, target_id: req.user._id, target_type: "Users"}, req, function(err, row) {
+		if (err)
+			return res.send(400, {error : err});
+		return res.send(200, {message : "Operation successful"});
+	});
+});
 module.exports = router;

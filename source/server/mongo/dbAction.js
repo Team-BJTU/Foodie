@@ -57,6 +57,21 @@ module.exports.Remove = function(model, id, callback) {
 	});
 };
 
+module.exports.RemoveWhere = function(model, params, callback) {
+	model.remove(params, function(err)
+	{
+		if (callback) {
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(err, "ok");
+		} else {
+			if (err) { throw err; }
+		}
+	});
+}
+
 module.exports.getAll = function(model, callback) {
 	Get(model, {}, function (err, results) {
 		if (err)

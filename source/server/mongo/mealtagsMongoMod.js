@@ -1,10 +1,6 @@
 var dbAction = require("./dbAction");
 
-/* GET user without his password */
 module.exports.addMealTag = function(models, params, callback) {
-	/*	TODO
-		Check if user logged
-	*/
 	if (!params.momentum_id || !params.user_id || !params.meal_id)
 		return callback("Missing parameters.");
 	/* Check if user exist */
@@ -29,16 +25,9 @@ module.exports.addMealTag = function(models, params, callback) {
 };
 
 module.exports.getMealTags = function(models, params, callback) {
-	/* TODO
-		Check if user logged
-	*/
 	dbAction.Get(models.MealTags, params, callback);
 };
 
-/* DELETE user by setting is_active at false - Only for logged user or admin */
 module.exports.deleteMealTags = function(model, id, callback) {
-	/* TODO
-		Check if user logged and admin
-	*/
 	dbAction.Remove(model, id, callback);
 };
