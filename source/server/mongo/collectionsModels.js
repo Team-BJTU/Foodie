@@ -2,11 +2,18 @@ var mongoose = require("mongoose");
 var dbModels = {};
 
 dbModels.Users = mongoose.model("user", mongoose.Schema({
-	name: String,
-	password: String,
-	mail: String,
-	birthDate : Date,
-	sexe: { type: String, default : "" },
+	username: {type : String, required: true},
+ 	password: {type : String, required : true},
+	mail: {type : String, required : true},
+	birthDate : {type : Date, required : true},
+	city : {type : String, required : true},
+	last_long : Number,
+	last_lat : Number,
+	is_active : {type :Boolean, default : true},
+	is_admin : Boolean,
+	picture_path : String,
+	sexe: { type: String, default : "M" },
+	last_login: { type : Date, default : Date.now}, 
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
 }));
@@ -57,24 +64,28 @@ dbModels.RestaurantCategories = mongoose.model("restaurantCategory", mongoose.Sc
 }));
 
 dbModels.Pictures = mongoose.model("picture", mongoose.Schema({
-	type: String,
-	name: String,
-	path: String,
-	target_id: String,
+	name: {type : String, required: true},
+	path: {type : String, required: true},
+	size: {type: Number, required: true},
+	target_id: {type : String, required: true},
+	target_type: {type: String, required: true},
+	user_id : {type: String, required: true},
 	date_created : { type : Date, default : Date.now },
 }));
 
 dbModels.Momentums = mongoose.model("momentum", mongoose.Schema({
-	user_id: String,
-	restaurant_id: String,
-	title: String,
-	content: String,
-	mark: Number,
-	date: { type: Date, default: Date.now }
+	user_id: { type : String, required : true},
+	restaurant_id: { type : String, required : true},
+	title: { type : String, required : true},
+	content: { type : String, required : true},
+	mark: { type : Number, required : true},
+	date: { type : Date, default: Date.now }
 }));
 
 dbModels.MealTags = mongoose.model("mealTag", mongoose.Schema({
-	momentum_id: String,
-	meal_id: String,
-	user_id: String
+	momentum_id: { type : String, required : true},
+	meal_id: { type : String, required : true},
+	user_id: { type : String, required : true},
 }));
+
+module.exports = dbModels;
