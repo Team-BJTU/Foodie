@@ -38,15 +38,14 @@ public class CreateAccountActivity extends ActionBarActivity {
         UsernameEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UsernameEditText.setText("");
+        UsernameEditText.setText("");
             }
         });
 
         //Clear PasswordEditText OnClick
         PasswordEditText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                PasswordEditText.setText("");
+            public void onClick(View v) {PasswordEditText.setText("");
             }
         });
 
