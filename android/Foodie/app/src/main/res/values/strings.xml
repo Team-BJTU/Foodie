@@ -36,8 +36,8 @@
     <string name="action_example">Example action</string>
     <string name="CityTextView">City</string>
     <string name="CityEditText">City</string>
-    <string name="DateTextView">Date</string>
-    <string name="DateEditText">Date</string>
+    <string name="DateTextView">Birthday</string>
+    <string name="DateEditText">Birthday</string>
     <string name="SexTextView">Gender</string>
 
     <string-array name="gender_array">
