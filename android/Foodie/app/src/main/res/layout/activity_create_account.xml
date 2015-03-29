@@ -9,56 +9,15 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="@string/FirstNameEditText"
-        android:ems="10"
-        android:id="@+id/FirstNameEditText"
-        android:textColor="#ff808080"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="@string/LastNameEditText"
-        android:ems="10"
-        android:id="@+id/LastNameEditText"
-        android:textColor="#ff808080"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/EmailEditText"
-        android:text="@string/EmailEditText"
-        android:textColor="#ff808080"
-        android:layout_below="@+id/textView5"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_alignRight="@+id/LastNameEditText"
-        android:layout_alignEnd="@+id/LastNameEditText" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/UserNameEditText"
         android:text="@string/UsernameEditText"
         android:textColor="#ff808080"
         android:layout_below="@+id/textView6"
         android:layout_alignLeft="@+id/textView6"
         android:layout_alignStart="@+id/textView6"
-        android:layout_alignRight="@+id/EmailEditText"
-        android:layout_alignEnd="@+id/EmailEditText" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textStyle="italic" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -68,26 +27,12 @@
         android:id="@+id/PasswordEditText"
         android:text="@string/PasswordEditTextRegister"
         android:textColor="#ff808080"
-        android:layout_above="@+id/RetypePassTextView"
-        android:layout_alignLeft="@+id/PasswordTextViewRegister"
-        android:layout_alignStart="@+id/PasswordTextViewRegister"
+        android:layout_below="@+id/PasswordTextViewRegister"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/UserNameEditText"
-        android:layout_alignEnd="@+id/UserNameEditText" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/RetypePasswordEditText"
-        android:text="@string/RetypePasswordEditText"
-        android:layout_above="@+id/RegisterButton"
-        android:layout_alignLeft="@+id/PasswordEditText"
-        android:layout_alignStart="@+id/PasswordEditText"
-        android:layout_marginBottom="37dp"
-        android:layout_alignRight="@+id/PasswordEditText"
-        android:layout_alignEnd="@+id/PasswordEditText"
-        android:textColor="#ff808080" />
+        android:layout_alignEnd="@+id/UserNameEditText"
+        android:textStyle="italic" />
 
     <Button
         android:layout_width="wrap_content"
@@ -95,11 +40,11 @@
         android:text="@string/RegisterButtonConfirmation"
         android:id="@+id/RegisterButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/RetypePasswordEditText"
-        android:layout_alignStart="@+id/RetypePasswordEditText"
-        android:layout_alignRight="@+id/RetypePasswordEditText"
-        android:layout_alignEnd="@+id/RetypePasswordEditText"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:layout_alignLeft="@+id/PasswordEditText"
+        android:layout_alignStart="@+id/PasswordEditText"
+        android:layout_alignRight="@+id/PasswordEditText"
+        android:layout_alignEnd="@+id/PasswordEditText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -108,53 +53,10 @@
         android:text="@string/PasswordTextView"
         android:id="@+id/PasswordTextViewRegister"
         android:textColor="#ff000000"
-        android:layout_above="@+id/PasswordEditText"
-        android:layout_alignLeft="@+id/UserNameEditText"
-        android:layout_alignStart="@+id/UserNameEditText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/RetypePasswordTextView"
-        android:id="@+id/RetypePassTextView"
-        android:textColor="#ff000000"
-        android:layout_above="@+id/RetypePasswordEditText"
-        android:layout_alignLeft="@+id/RetypePasswordEditText"
-        android:layout_alignStart="@+id/RetypePasswordEditText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/FirstNameTextView"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/FirstNameEditText"
-        android:layout_alignStart="@+id/FirstNameEditText"
-        android:textColor="#ff000000" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/LastNameTextView"
-        android:id="@+id/textView2"
-        android:textColor="#ff000000"
-        android:layout_below="@+id/FirstNameEditText"
-        android:layout_alignLeft="@+id/FirstNameEditText"
-        android:layout_alignStart="@+id/FirstNameEditText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/EmailTextView"
-        android:id="@+id/textView5"
-        android:textColor="#ff000000"
-        android:layout_below="@+id/LastNameEditText"
-        android:layout_alignLeft="@+id/LastNameEditText"
-        android:layout_alignStart="@+id/LastNameEditText" />
+        android:layout_below="@+id/UserNameEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -163,8 +65,107 @@
         android:text="@string/UsernameTextView"
         android:id="@+id/textView6"
         android:textColor="#ff000000"
+        android:singleLine="false"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/EmailTextView"
+        android:id="@+id/EmailTextView"
+        android:layout_below="@+id/PasswordEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ff000000"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/EmailEditText"
+        android:layout_below="@+id/EmailTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/PasswordEditText"
+        android:layout_alignEnd="@+id/PasswordEditText"
+        android:text="@string/EmailEditText"
+        android:textColor="#ff808080"
+        android:textStyle="italic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/CityTextView"
+        android:id="@+id/CitytTextView"
         android:layout_below="@+id/EmailEditText"
-        android:layout_alignLeft="@+id/EmailEditText"
-        android:layout_alignStart="@+id/EmailEditText" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:textColor="#ff000000" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/CityEditText"
+        android:textStyle="italic"
+        android:text="@string/CityEditText"
+        android:textColor="#ff808080"
+        android:layout_below="@+id/CitytTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/EmailEditText"
+        android:layout_alignEnd="@+id/EmailEditText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/DateTextView"
+        android:id="@+id/DateTextView"
+        android:layout_below="@+id/CityEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:textColor="#ff000000" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/DateEditText"
+        android:layout_below="@+id/DateTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/CityEditText"
+        android:layout_alignEnd="@+id/CityEditText"
+        android:text="@string/DateEditText"
+        android:textStyle="italic"
+        android:textColor="#ff808080" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/SexTextView"
+        android:id="@+id/GenderTextView"
+        android:layout_below="@+id/DateEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:textColor="#ff000000" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/GenderChoiceSpinner"
+        android:layout_below="@+id/GenderTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:spinnerMode="dialog" />
 
 </RelativeLayout>
