@@ -24,4 +24,14 @@
     <string name="RetypePasswordTextView">Password</string>
     <string name="RetypePasswordEditText">Password</string>
     <string name="RegisterButtonConfirmation">Register</string>
+    <string name="title_activity_main_page">Foodie</string>
+
+    <string name="title_section1">Home Page</string>
+    <string name="title_section2">Reservation</string>
+    <string name="title_section3">Discover</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>

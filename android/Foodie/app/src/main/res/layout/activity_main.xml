@@ -79,7 +79,8 @@
         android:layout_alignRight="@+id/RegisterButton"
         android:layout_alignEnd="@+id/RegisterButton"
         android:layout_alignLeft="@+id/RegisterButton"
-        android:layout_alignStart="@+id/RegisterButton" />
+        android:layout_alignStart="@+id/RegisterButton"
+        android:onClick="FoodieMainPage"/>
 
     <Button
         android:layout_width="wrap_content"

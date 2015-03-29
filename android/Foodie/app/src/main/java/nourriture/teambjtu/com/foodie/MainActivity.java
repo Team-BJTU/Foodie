@@ -16,6 +16,12 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void FoodieMainPage(View view)
+    {
+        Intent intent = new Intent(this, MainPageActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
