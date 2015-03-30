@@ -26,7 +26,7 @@
     <string name="RegisterButtonConfirmation">Register</string>
     <string name="title_activity_main_page">Foodie</string>
 
-    <string name="title_section1">Home Page</string>
+    <string name="title_section1">Home</string>
     <string name="title_section2">Reservation</string>
     <string name="title_section3">Discover</string>
 
@@ -44,4 +44,8 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+    <string name="title_activity_home">Home</string>
+    <string name="ExempleHomeTextView">HOME</string>
+    <string name="ExempleReservationTextView">Reservation</string>
+    <string name="ExempleDiscoverTextView">Discover</string>
 </resources>

@@ -1,87 +1,107 @@
 package nourriture.teambjtu.com.foodie;
 
-import java.util.Locale;
-
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 
-public class MainPageActivity extends ActionBarActivity implements ActionBar.TabListener {
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+public class MainPageActivity extends ActionBarActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
-     * The {@link ViewPager} that will host the section contents.
+     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    ViewPager mViewPager;
+    private NavigationDrawerFragment mNavigationDrawerFragment;
+
+    /**
+     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
+     */
+    private CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        // Set up the action bar.
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
 
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // a reference to the Tab.
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
+        Fragment objFragment = null;
 
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by
-            // the adapter. Also specify this Activity object, which implements
-            // the TabListener interface, as the callback (listener) for when
-            // this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
+        switch (position)
+        {
+            case 0:
+                //Home Page
+                objFragment = new Home_fragment();
+                break;
+            case 1:
+                //Reservation
+                objFragment = new Reservation_fragment();
+                break;
+            case 2:
+                //Discover
+                objFragment = new Discover_fragment();
+                break;
         }
+
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, objFragment).commit();
+    }
+
+    public void onSectionAttached(int number) {
+        switch (number) {
+            case 1:
+                mTitle = getString(R.string.title_section1);
+                break;
+            case 2:
+                mTitle = getString(R.string.title_section2);
+                break;
+            case 3:
+                mTitle = getString(R.string.title_section3);
+                break;
+        }
+    }
+
+    public void restoreActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(mTitle);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main_page, menu);
-        return true;
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+            // Only show items in the action bar relevant to this screen
+            // if the drawer is not showing. Otherwise, let the drawer
+            // decide what to show in the action bar.
+            getMenuInflater().inflate(R.menu.main_page, menu);
+            restoreActionBar();
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -99,57 +119,9 @@ public class MainPageActivity extends ActionBarActivity implements ActionBar.Tab
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in
-        // the ViewPager.
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
-            }
-            return null;
-        }
+    public void Settings(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -182,6 +154,13 @@ public class MainPageActivity extends ActionBarActivity implements ActionBar.Tab
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main_page, container, false);
             return rootView;
+        }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            ((MainPageActivity) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 

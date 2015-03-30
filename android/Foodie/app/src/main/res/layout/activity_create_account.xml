@@ -44,7 +44,8 @@
         android:layout_alignLeft="@+id/PasswordEditText"
         android:layout_alignStart="@+id/PasswordEditText"
         android:layout_alignRight="@+id/PasswordEditText"
-        android:layout_alignEnd="@+id/PasswordEditText" />
+        android:layout_alignEnd="@+id/PasswordEditText"
+        android:onClick="Register" />
 
     <TextView
         android:layout_width="wrap_content"

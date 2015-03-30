@@ -2,6 +2,7 @@ package nourriture.teambjtu.com.foodie;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,18 @@ public class CreateAccountActivity extends ActionBarActivity {
     public EditText DateEditText;
 
     public Spinner GenderSpinner;
+
+    public void Register (View view)
+    {
+        String Username = UsernameEditText.getText().toString();
+        String Password = PasswordEditText.getText().toString();
+        String Email    = EmailEditText.getText().toString();
+        String City     = CityEditText.getText().toString();
+        String Date     = DateEditText.getText().toString();
+
+        String GenderSpinnerValue = GenderSpinner.getSelectedItem().toString();
+        Log.i("GenderValue", GenderSpinnerValue);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
