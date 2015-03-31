@@ -1,7 +1,11 @@
 package nourriture.teambjtu.com.foodie;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +13,16 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
+import java.io.InputStream;
 
 
 public class CreateAccountActivity extends ActionBarActivity {
@@ -21,16 +35,126 @@ public class CreateAccountActivity extends ActionBarActivity {
 
     public Spinner GenderSpinner;
 
+    public String username;
+    public String password;
+    public String email;
+    public String city;
+    public String date;
+
+    public String GenderSpinnerValue;
+
+    public String showResult;
+
     public void Register (View view)
     {
-        String Username = UsernameEditText.getText().toString();
-        String Password = PasswordEditText.getText().toString();
-        String Email    = EmailEditText.getText().toString();
-        String City     = CityEditText.getText().toString();
-        String Date     = DateEditText.getText().toString();
+        username = UsernameEditText.getText().toString();
+        password = PasswordEditText.getText().toString();
+        email    = EmailEditText.getText().toString();
+        city     = CityEditText.getText().toString();
+        date     = DateEditText.getText().toString();
 
-        String GenderSpinnerValue = GenderSpinner.getSelectedItem().toString();
+        GenderSpinnerValue = GenderSpinner.getSelectedItem().toString();
+
+        if (GenderSpinnerValue == "Male")
+        {
+            GenderSpinnerValue = "M";
+        }
+        else if (GenderSpinnerValue == "Female")
+        {
+            GenderSpinnerValue = "F";
+        }
         Log.i("GenderValue", GenderSpinnerValue);
+
+        System.out.println("Affichage Username==== " + username);
+        System.out.println("Affichage Password==== " + password);
+        System.out.println("Affichage Email==== " + email);
+        System.out.println("Affichage City==== " + city);
+        System.out.println("Affichage Date==== " + date);
+        System.out.println("Affichage Sex==== " + GenderSpinnerValue);
+
+        new NetworkAsyncTask().execute();
+    }
+
+    @SuppressWarnings("deprecation")
+    public static String  doRegister(String user, String pass, String email, String city, String date, String sex) {
+        InputStream inputStream = null;
+        String result = "";
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost("http://192.168.56.1:3000/foodie/new");
+        String request = null;
+
+        try {
+            JSONObject object = new JSONObject();
+            object.accumulate("username", user);
+            object.accumulate("password", pass);
+            object.accumulate("mail", email);
+            object.accumulate("city", city);
+            object.accumulate("birthDate", date);
+            object.accumulate("sexe", sex);
+            request = object.toString();
+            StringEntity entity = new StringEntity(request);
+            httpPost.setEntity(entity);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            inputStream = httpResponse.getEntity().getContent();
+            if(inputStream != null)
+                result = ManageInput.InputStreamToString(inputStream);
+
+            else
+                result = "Fail";
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+        return result;
+    }
+
+    public class NetworkAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private final ProgressDialog dialog = new ProgressDialog(CreateAccountActivity.this);
+        //private final Dialog ResultDialog = new Dialog(CreateAccountActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            this.dialog.setMessage("Logging ...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... unused) {
+            showResult = doRegister(username, password, email, city, date, GenderSpinnerValue);
+            System.out.println("[RESULTS =====>" + showResult);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+            if (showResult.equals("{\"message\":\"success\"}"))
+            {
+                Context context = getApplicationContext();
+                CharSequence text = "Registration Successful !";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+                Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            else if (showResult.equals("{\"error\":\"Username already taken\"}"))
+            {
+                Context context = getApplicationContext();
+                CharSequence text = "This Username already exist !";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }
     }
 
     @Override
@@ -43,9 +167,7 @@ public class CreateAccountActivity extends ActionBarActivity {
         EmailEditText = (EditText) findViewById(R.id.EmailEditText);
         CityEditText = (EditText) findViewById(R.id.CityEditText);
         DateEditText = (EditText) findViewById(R.id.DateEditText);
-
         GenderSpinner = (Spinner) findViewById(R.id.GenderChoiceSpinner);
-
 
         //Clear UsernameEditText OnClick
         UsernameEditText.setOnClickListener(new View.OnClickListener() {
