@@ -25,6 +25,35 @@ import org.json.JSONObject;
 import java.io.InputStream;
 
 
+/*if (showResult != null)
+            {
+                try
+                {
+                    JSONObject reader = new JSONObject(showResult);
+                    id = reader.getJSONObject(TAG_ID).getString(TAG_ID);
+                    username = reader.getJSONObject(TAG_USERNAME).getString(TAG_USERNAME);
+                    password = reader.getJSONObject(TAG_PASSWORD).getString(TAG_PASSWORD);
+                    email = reader.getJSONObject(TAG_EMAIL).getString(TAG_EMAIL);
+                    city = reader.getJSONObject(TAG_CITY).getString(TAG_CITY);
+                    birthdate = reader.getJSONObject(TAG_BIRTHDATE).getString(TAG_BIRTHDATE);
+                    isadmin = reader.getJSONObject(TAG_ISADMIN).getString(TAG_ISADMIN);
+                    v = reader.getJSONObject(TAG_V).getString(TAG_V);
+                    dateupdated = reader.getJSONObject(TAG_DATEUPDATED).getString(TAG_DATEUPDATED);
+                    datecreated = reader.getJSONObject(TAG_DATECREATED).getString(TAG_DATECREATED);
+                    lastlogin = reader.getJSONObject(TAG_LASTLOGIN).getString(TAG_LASTLOGIN);
+                    sexe = reader.getJSONObject(TAG_SEXE).getString(TAG_SEXE);
+                    isactive = reader.getJSONObject(TAG_ISACTIVE).getString(TAG_ISACTIVE);
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                Log.e("ServiceHandler", "Couldn't get any data from the url");
+            } */
+
+
 public class CreateAccountActivity extends ActionBarActivity {
 
     public EditText UsernameEditText;
@@ -72,7 +101,7 @@ public class CreateAccountActivity extends ActionBarActivity {
         System.out.println("Affichage Date==== " + date);
         System.out.println("Affichage Sex==== " + GenderSpinnerValue);
 
-        new NetworkAsyncTask().execute();
+        new RegisterNetworkAsyncTask().execute();
     }
 
     @SuppressWarnings("deprecation")
@@ -109,7 +138,7 @@ public class CreateAccountActivity extends ActionBarActivity {
         return result;
     }
 
-    public class NetworkAsyncTask extends AsyncTask<Void, Void, Void> {
+    public class RegisterNetworkAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private final ProgressDialog dialog = new ProgressDialog(CreateAccountActivity.this);
         //private final Dialog ResultDialog = new Dialog(CreateAccountActivity.this);
@@ -122,6 +151,7 @@ public class CreateAccountActivity extends ActionBarActivity {
 
         @Override
         protected Void doInBackground(final Void... unused) {
+
             showResult = doRegister(username, password, email, city, date, GenderSpinnerValue);
             System.out.println("[RESULTS =====>" + showResult);
 

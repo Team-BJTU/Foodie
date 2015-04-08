@@ -1,18 +1,36 @@
 package nourriture.teambjtu.com.foodie;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.InputStream;
+import java.net.HttpCookie;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainPageActivity extends ActionBarActivity
@@ -28,6 +46,8 @@ public class MainPageActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    public String showResult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +61,17 @@ public class MainPageActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        Bundle extra = getIntent().getBundleExtra("extra");
+
+        /*String[] cookieArray = (String[]) extra.getSerializable("cookieArray");
+
+        List<Cookie> cookies = new ArrayList<Cookie>();
+
+        for(int i = 0; i < cookieArray.length ; i++)
+        {
+            cookies.add(new HttpCookie("cookie", cookieArray[i]));
+        }*/
     }
 
     @Override
@@ -115,6 +146,9 @@ public class MainPageActivity extends ActionBarActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_logout) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -122,6 +156,71 @@ public class MainPageActivity extends ActionBarActivity
     public void Settings(MenuItem item) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+    }
+
+    public void Logout(MenuItem item) {
+        new LogOutNetworkAsyncTask().execute();
+    }
+
+    @SuppressWarnings("deprecation")
+    public static String doLogout()
+    {
+        HttpClient Client = new DefaultHttpClient();
+        InputStream inputStream = null;
+        String result = "";
+        String request = null;
+
+        try
+        {
+            HttpGet httpget = new HttpGet("http://192.168.56.1:3000/foodie/logout");
+            //httpget.setHeader("Cookie", );
+            HttpResponse httpResponse = Client.execute(httpget);
+            inputStream = httpResponse.getEntity().getContent();
+            if(inputStream != null)
+                result = ManageInput.InputStreamToString(inputStream);
+            else
+                result = "Fail";
+        }
+        catch(Exception e)
+        {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+        return result;
+    }
+
+    public class LogOutNetworkAsyncTask extends AsyncTask<Void, Void, Void>
+    {
+        private final ProgressDialog dialog = new ProgressDialog(MainPageActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            this.dialog.setMessage("Log out ...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... unused) {
+
+            showResult = doLogout();
+            System.out.println("[RESULTS =====>" + showResult);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+            if (showResult.equals("{\"message\":\"You are not logged out.\"}"))
+            {
+                Context context = getApplicationContext();
+                CharSequence text = "You are Logged out !";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }
     }
 
     /**
