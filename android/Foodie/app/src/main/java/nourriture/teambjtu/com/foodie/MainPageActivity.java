@@ -91,13 +91,17 @@ public class MainPageActivity extends ActionBarActivity
                 break;
             case 2:
                 //Discover
-                objFragment = new Discover_fragment();
+                //objFragment = new Discover_fragment();
+                Intent intent = new Intent(this, Discover_fragment.class);
+                startActivity(intent);
                 break;
         }
 
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, objFragment).commit();
+        if (objFragment != null) {
+            // update the main content by replacing fragments
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, objFragment).commit();
+        }
     }
 
     public void onSectionAttached(int number) {

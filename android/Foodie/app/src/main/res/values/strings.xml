@@ -26,6 +26,7 @@
     <string name="RetypePasswordEditText">Password</string>
     <string name="RegisterButtonConfirmation">Register</string>
     <string name="title_activity_main_page">Foodie</string>
+    <string name="Title_DiscoverView">Discover</string>
 
     <string name="title_section1">Home</string>
     <string name="title_section2">Reservation</string>
