@@ -18,8 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * Created by diaopie on 31/03/15.
+ * Created by diaopie on 31/03/15 at 14:21.
  */
+
 public class Discover_fragment extends Activity {
 
     /** Local variables **/
