@@ -10,8 +10,8 @@ module.exports.addRestaurant = function(models, values, callback) {
 			return callback("You have to input the required fields");
 	}
 
-	if (!(values.mail.match(mailRegExp)))
-		return callback("You wrote a wrong E-Mail adress, example: example@example.com");
+	//if (!(values.mail.match(mailRegExp)))
+	//	return callback("You wrote a wrong E-Mail adress, example: example@example.com");
 
 	dbAction.Get(models.Restaurants, {name: values.name, adress: values.adress, city: values.city, country: values.country}, function (err, result) {
 		if (err)
