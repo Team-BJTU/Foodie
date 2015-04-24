@@ -15,7 +15,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var mealtags = require('./routes/mealtags');
 var restaurants = require('./routes/restaurants');
-// var reservations = require('./routes/reservations');
+var reservations = require('./routes/reservations');
 var momentums = require('./routes/momentums');
 var medias = require('./routes/medias');
 // var meals = require('./routes/meals');
@@ -26,18 +26,30 @@ mongoose.connect(process.env.dbUrl);
 
 var db = mongoose.connection;
 var app = express();
+var jumanji = require('jumanji');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
+app.use(jumanji);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'mabjew' }));
+// app.use('/', routes);
+app.use('/foodie', users);
+app.use('/restaurants', restaurants);
+app.use('/mealtags', mealtags);
+app.use('/momentums', momentums);
+app.use('/media', medias);
+// app.use('/meals', meals);
+// app.use('/picures', picures);
+app.use('/reservations', reservations);
+app.use('/admin', require('./routes/admin'));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -115,18 +127,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/', routes);
-app.use('/foodie', users);
-app.use('/restaurants', restaurants);
-app.use('/mealtags', mealtags);
-app.use('/momentums', momentums);
-app.use('/media', medias);
-/*app.use('/reservations', reservations);
 
 
-app.use('/meals', meals);
-app.use('/picures', picures);
-*/
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

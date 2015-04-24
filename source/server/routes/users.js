@@ -11,7 +11,7 @@ router.post('/new', function(req, res){
 	{
 		if (err)
 			return res.send(400, {error: err});
-		return res.send(200, {message: "success"});
+		return res.send(200, {message: "success", user: row});
 	});
 });
 
@@ -60,7 +60,7 @@ router.put('/update/:id', function(req, res)
 	userUtils.updateUser(req.models.Users, req.params.id, req.body, function(err, row) {
 		if (err)
 			return res.send(400, {error : err});
-		return res.send(200, {message : "Update successful"});
+		return res.send(200, {message : "Update successful", user: row});
 	});
 });
 

@@ -2,6 +2,33 @@ doctype html
 html
   head
     title= title
+    //- link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/jasny-bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    script(src='/libraries/jquery-1.10.2.min.js')
+    script(src='/libraries/bootstrap.min.js')
+    script(src='/libraries/jasny-bootstrap.min.js')
+    script(src="/javascripts/angular.min.js")
+    script(src='/javascripts/script.js')
+    script(src='/javascripts/foodie-admin-app.js')
+    script(src='/javascripts/usersService.js')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+  body(ng-app="foodieAdminApp")
+    .container-fluid
+        .row-fluid.col-md-2.sidebar
+            ul.nav.nav-list(role="navigation")
+                li(role="presentation")
+                    a(href="#usersTab", , data-toggle="tab") Users
+                li(role="presentation")
+                    a(href="#restaurantsTab", , data-toggle="tab") Restaurants
+                li(role="presentation")
+                    a(href="#reservationsTab", , data-toggle="tab") Reservations
+        div.tab-content.col-md-10
+            div#usersTab.tab-pane.fade.in.active(role="tabpanel")
+                include blocks/block_users_tab
+            div#restaurantsTab.tab-pane.fade(role="tabpanel")
+                include blocks/block_restaurants_tab
+            div#reservationsTab.tab-pane.fade(role="tabpanel")
+                include blocks/block_reservations_tab

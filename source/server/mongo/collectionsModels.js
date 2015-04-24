@@ -35,10 +35,10 @@ dbModels.Restaurants = mongoose.model("restaurant", mongoose.Schema({
 }));
 
 dbModels.Reservations = mongoose.model("reservation", mongoose.Schema({
-	restaurant_id: String,
-	user_id: String,
+	restaurant_id: { type: String, required: true },
+	user_id: { type: String, required: true },
 	nbPeople: Number,
-	date: Date,
+	date: { type: Date, required: true },
 	validated: Boolean,
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
