@@ -1,0 +1,58 @@
+div(ng-controller="usersTabCtrl")
+    h1
+        | Users 
+        a.btn.btn-default(href="#", role="button", style="background-image: none; box-shadow: none", data-toggle="modal", data-target="#addUserModal")
+            span.glyphicon.glyphicon-plus
+    .modal.fade#addUserModal(tab-index="-1", role="dialog", aria-labellebdy="addUserLabel", aria-hidden="true")
+        .modal-dialog.modal-sm
+            .modal-content
+                .modal-header
+                    button.close(type="button", data-dismiss="modal")
+                        span(aria-hidden="true") &times;
+                        span.sr-only Close
+                    h4.modal-title#addUserLabel Add User
+                .modal-body
+                    form(action, method)
+                        input.form-control(type="text", placeholder="E-Mail", ng-model="mailAdd")
+                        input.form-control(type="text", placeholder="Username", ng-model="usernameAdd")
+                        input.form-control(type="password", placeholder="Password", ng-model="passwordAdd")
+                        input.form-control(type="date", placeholder="Birthdate", ng-model="birthDateAdd")
+                        input.form-control(type="text", placeholder="City", ng-model="cityAdd")
+                .modal-footer
+                    button.btn.btn-default(type="button", data-dismiss="modal") Cancel
+                    button.btn.btn-primary(type="button", ng-click="addNewUser()") Add User
+    hr
+    div
+        //- div.col-md-11.test(style="position:absolute; right: 0px; width: 0%; overflow: hidden;display: none")
+        //-     h1 Hello World
+        table.table.table-responsive.table-hover(ng-hide="usersList == {}")
+            thead
+                tr
+                    th Username
+                    th E-Mail
+                    th Née le
+                    th Modifié le
+                    th Créé le
+                tr(ng-repeat="user in usersList | orderBy:'date_created':true")
+                    td {{user.username}}
+                    td {{user.mail}}
+                    td {{user.birthDate.toLocaleDateString()}}
+                    td {{user.date_updated.toLocaleString()}}
+                    td {{user.date_created.toLocaleString()}}
+        .jumbotron(ng-show="usersList == {}", style="text-align: center")
+            h2 Aucun User n'a été trouvé
+
+    script.
+        $(".toto").on("click", function () {
+            $(".test").show();
+            $(".test").animate({
+                width: "90%"
+            }, "normal");
+        });
+        $(".test").on("click", function () {
+            $(".test").animate({
+                width: "0%"
+            }, "normal", function () {
+                $(this).hide();
+            });
+        });
