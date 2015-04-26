@@ -73,7 +73,7 @@ module.exports.RemoveWhere = function(model, params, callback) {
 }
 
 module.exports.getAll = function(model, callback) {
-	module.exports.Get(model, {}, function (err, results) {
+	Get(model, {}, function (err, results) {
 		if (err)
 			return callback(err);
 		return callback(err, results);
@@ -81,7 +81,7 @@ module.exports.getAll = function(model, callback) {
 };
 
 module.exports.getById = function(model, id, callback) {
-	module.exports.Get(model, {_id: id}, function (err, result) {
+	Get(model, {_id: id}, function (err, result) {
 		if (err)
 			return callback(err);
 		if (result.length > 0)
