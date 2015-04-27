@@ -18,6 +18,7 @@ var restaurants = require('./routes/restaurants');
 var reservations = require('./routes/reservations');
 var momentums = require('./routes/momentums');
 var medias = require('./routes/medias');
+var admin = require('./routes/admin');
 // var meals = require('./routes/meals');
 // var pictures = require('./routes/pictures');
 
@@ -28,7 +29,7 @@ var db = mongoose.connection;
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
@@ -36,8 +37,22 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './public')));
 app.use(session({ secret: 'mabjew' }));
+
+/// Init database access
+app.use(function(req, res, next) {
+    // res.contentType('application/json');
+    db.on("error", console.error.bind(console, "Database Connection Error: "));
+    db.once("open", function() {
+        console.log("You're now connected to " + process.env.dbUrl);
+    });
+    req.db = db;
+    req.models = models;
+    next();
+});
+
+app.use('/admin', admin);
 // app.use('/', routes);
 app.use('/foodie', users);
 app.use('/restaurants', restaurants);
@@ -47,11 +62,9 @@ app.use('/media', medias);
 // app.use('/meals', meals);
 // app.use('/picures', picures);
 app.use('/reservations', reservations);
-app.use('/admin', require('./routes/admin'));
+
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 /* Passport initialisation for Local Authentification */
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -76,6 +89,8 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     });
 });
+
+
 
 /* Multer configuration */
 /* TODO
@@ -113,20 +128,6 @@ app.use(multer({dest : './uploads/',
     }
 }));
 
-/// Init database access
-app.use(function(req, res, next) {
-    res.contentType('application/json');
-    db.on("error", console.error.bind(console, "Database Connection Error: "));
-    db.once("open", function() {
-        console.log("You're now connected to " + process.env.dbUrl);
-    });
-    req.db = db;
-    req.models = models;
-    next();
-});
-
-
-
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -142,6 +143,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
+        console.log("Error in development --> message: " + err.message + " ----- Err: " + err);
         res.render('error', {
             message: err.message,
             error: err
@@ -152,6 +154,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+    console.log("Error in production --> message: " + err.message + " ----- Err: " + err);
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

@@ -23,36 +23,42 @@ div(ng-controller="usersTabCtrl")
                     button.btn.btn-primary(type="button", ng-click="addNewUser()") Add User
     hr
     div
-        //- div.col-md-11.test(style="position:absolute; right: 0px; width: 0%; overflow: hidden;display: none")
-        //-     h1 Hello World
+        div.jumbotron.col-md-11.userInfo(style="position:absolute; right: 0px; width: 0%; padding: 24px 30px; overflow: hidden;display: none")
+            button.close(type="button", onclick="$('.userInfo').animate({ width: '0%', right: '0%' }, 'fast', function () { $(this).hide(); });")
+                span(aria-hidden="true") &times;
+                span.sr-only Close
+            form(action, method)
+                input.form-control(type="hidden", ng-model="updateUser._id")
+                input.form-control(type="text", placeholder="E-Mail", ng-model="updateUser.mail")
+                input.form-control(type="text", placeholder="Username", ng-model="updateUser.username")
+                input.form-control(type="password", placeholder="Password", ng-model="updateUser.password")
+                input.form-control(type="date", placeholder="Birthdate", ng-model="updateUser.birthDate", value="{{updateUser.date | date: 'MM/dd/yyyy'")
+                input.form-control(type="text", placeholder="City", ng-model="updateUser.city")
+            .row(style="text-align: center; margin: 10px 0px; ")
+                button.btn.btn-primary(type="button", style="margin-right: 10px", ng-click="updateUserInfo()") Update User
+                button.btn.btn-default(type="button", onclick="$('.userInfo').animate({ width: '0%', right: '0%' }, 'fast', function () { $(this).hide(); });") Cancel
         table.table.table-responsive.table-hover(ng-hide="usersList == {}")
-            thead
-                tr
-                    th Username
-                    th E-Mail
-                    th Née le
-                    th Modifié le
-                    th Créé le
-                tr(ng-repeat="user in usersList | orderBy:'date_created':true")
+            tbody
+                thead
+                    tr
+                        th Username
+                        th E-Mail
+                        th Borned
+                        th Modified
+                        th Created
+                        th Actions
+                tr(ng-repeat="user in usersList | orderBy:'date_updated':true")
                     td {{user.username}}
                     td {{user.mail}}
-                    td {{user.birthDate.toLocaleDateString()}}
-                    td {{user.date_updated.toLocaleString()}}
-                    td {{user.date_created.toLocaleString()}}
+                    td {{user.birthDate | date: "MM/dd/yyyy"}}
+                    td {{user.date_updated | date: "MM/dd/yyyy ' at ' HH:mm:ss"}}
+                    td {{user.date_created | date: "MM/dd/yyyy ' at ' HH:mm:ss"}}
+                    td.row
+                        a.btn(href="#", data-toggle="tooltip", data-placement="top", title="Modify user", onclick=" $('.userInfo').show(); $('.userInfo').animate({width: '30%', right: '35%'}, 'fast');", ng-click="showUserInfo(user._id)")
+                            span.glyphicon.glyphicon-pencil(style="position: static")
+                        a.btn(data-toggle="tooltip", data-placement="top", title="Delete user", ng-click="deleteUser(user)")
+                            span.glyphicon.glyphicon-remove(style="position: static")
         .jumbotron(ng-show="usersList == {}", style="text-align: center")
-            h2 Aucun User n'a été trouvé
+            h2 No users found
 
     script.
-        $(".toto").on("click", function () {
-            $(".test").show();
-            $(".test").animate({
-                width: "90%"
-            }, "normal");
-        });
-        $(".test").on("click", function () {
-            $(".test").animate({
-                width: "0%"
-            }, "normal", function () {
-                $(this).hide();
-            });
-        });

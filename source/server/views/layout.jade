@@ -3,18 +3,19 @@ html
   head
     title= title
     //- link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+    meta(name="304workaround", content="2025-10-24 21:17:23")
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/stylesheets/jasny-bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/libraries/jquery-1.10.2.min.js')
+    script(src='/libraries/jquery-1.11.2.min.js')
     script(src='/libraries/bootstrap.min.js')
     script(src='/libraries/jasny-bootstrap.min.js')
     script(src="/javascripts/angular.min.js")
     script(src='/javascripts/script.js')
     script(src='/javascripts/foodie-admin-app.js')
     script(src='/javascripts/usersService.js')
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
   body(ng-app="foodieAdminApp")
     .container-fluid
         .row-fluid.col-md-2.sidebar
