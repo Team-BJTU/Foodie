@@ -26,14 +26,12 @@ mongoose.connect(process.env.dbUrl);
 
 var db = mongoose.connection;
 var app = express();
-var jumanji = require('jumanji');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
-app.use(jumanji);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
