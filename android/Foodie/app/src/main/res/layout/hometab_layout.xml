@@ -12,4 +12,18 @@
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textSize="72dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LoggoutButton"
+        android:id="@+id/LogOutButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:background="#ffff2e2b"
+        android:onClick="LogOut" />
+
 </RelativeLayout>

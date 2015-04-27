@@ -47,8 +47,27 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
     <string name="title_activity_home">Home</string>
     <string name="ExempleHomeTextView">HOME</string>
     <string name="ExempleReservationTextView">Reservation</string>
     <string name="ExempleDiscoverTextView">Discover</string>
+    <string name="ReservationTextView">Reservation : </string>
+    <string name="RestaurantListPresentationTextView">Please Choose a Restaurant</string>
+    <string name="title_activity_restaurant_description">Restaurant Description</string>
+    <string name="RestaurantTitleTextView">Restaurant</string>
+    <string name="AddressTextView">Address :</string>
+    <string name="ZipCodeTextView">Zip Code :</string>
+    <string name="CityDescriptionTextView">City :</string>
+    <string name="CountryTextView">Country :</string>
+    <string name="NumberPhoneTextView">Phone :</string>
+    <string name="EmailDescriptionTextView">Email :</string>
+    <string name="ReservationButton">Reservation</string>
+    <string name="LoggoutButton">Log out</string>
+    <string name="title_activity_reservation">Reservation</string>
+    <string name="ReservationPageTextView">Reservation</string>
+    <string name="ChooseADateTextView">Please choose a date :</string>
+    <string name="NextButton">Next</string>
+    <string name="title_activity_choose_hour">Choose your hour</string>
+    <string name="ConfirmationRerservationButton">Confirmation</string>
 </resources>

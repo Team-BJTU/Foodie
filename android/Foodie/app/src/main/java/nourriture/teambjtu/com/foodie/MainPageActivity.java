@@ -23,6 +23,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -176,7 +177,9 @@ public class MainPageActivity extends ActionBarActivity
 
         try
         {
-            HttpGet httpget = new HttpGet("http://192.168.56.1:3000/foodie/logout");
+            //HttpGet httpget = new HttpGet("http://192.168.56.1:3000/foodie/logout");
+            HttpGet httpget = new HttpGet("http://54.65.15.185:3000/foodie/logout");
+
             //httpget.setHeader("Cookie", );
             HttpResponse httpResponse = Client.execute(httpget);
             inputStream = httpResponse.getEntity().getContent();

@@ -42,7 +42,8 @@
         android:layout_alignStart="@+id/Title_textView"
         android:layout_alignRight="@+id/Title_textView"
         android:layout_alignEnd="@+id/Title_textView"
-        android:textColor="#ff808080" />
+        android:textColor="#ff808080"
+        android:hint="@string/LoginEditText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -67,7 +68,8 @@
         android:layout_alignStart="@+id/LoginEditText"
         android:layout_alignRight="@+id/LoginEditText"
         android:layout_alignEnd="@+id/LoginEditText"
-        android:textColor="#ff808080" />
+        android:textColor="#ff808080"
+        android:hint="@string/PasswordEditText" />
 
     <Button
         android:layout_width="wrap_content"

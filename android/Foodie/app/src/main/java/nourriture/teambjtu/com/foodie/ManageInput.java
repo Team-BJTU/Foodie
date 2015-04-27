@@ -19,6 +19,5 @@ public class ManageInput {
 
         inputStream.close();
         return result;
-
     }
 }

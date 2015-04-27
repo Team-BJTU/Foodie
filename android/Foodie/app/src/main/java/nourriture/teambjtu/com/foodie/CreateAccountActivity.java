@@ -74,6 +74,26 @@ public class CreateAccountActivity extends ActionBarActivity {
 
     public String showResult;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_account);
+
+        UsernameEditText = (EditText) findViewById(R.id.UserNameEditText);
+        PasswordEditText = (EditText) findViewById(R.id.PasswordEditText);
+        EmailEditText = (EditText) findViewById(R.id.EmailEditText);
+        CityEditText = (EditText) findViewById(R.id.CityEditText);
+        DateEditText = (EditText) findViewById(R.id.DateEditText);
+        GenderSpinner = (Spinner) findViewById(R.id.GenderChoiceSpinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> GenderAdapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        GenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        GenderSpinner.setAdapter(GenderAdapter);
+    }
+
     public void Register (View view)
     {
         username = UsernameEditText.getText().toString();
@@ -110,6 +130,7 @@ public class CreateAccountActivity extends ActionBarActivity {
         String result = "";
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost("http://192.168.56.1:3000/foodie/new");
+        //HttpPost httpPost = new HttpPost("http://54.65.15.185:3000/foodie/new");
         String request = null;
 
         try {
@@ -129,7 +150,6 @@ public class CreateAccountActivity extends ActionBarActivity {
             inputStream = httpResponse.getEntity().getContent();
             if(inputStream != null)
                 result = ManageInput.InputStreamToString(inputStream);
-
             else
                 result = "Fail";
         } catch (Exception e) {
@@ -185,65 +205,6 @@ public class CreateAccountActivity extends ActionBarActivity {
                 toast.show();
             }
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
-
-        UsernameEditText = (EditText) findViewById(R.id.UserNameEditText);
-        PasswordEditText = (EditText) findViewById(R.id.PasswordEditText);
-        EmailEditText = (EditText) findViewById(R.id.EmailEditText);
-        CityEditText = (EditText) findViewById(R.id.CityEditText);
-        DateEditText = (EditText) findViewById(R.id.DateEditText);
-        GenderSpinner = (Spinner) findViewById(R.id.GenderChoiceSpinner);
-
-        //Clear UsernameEditText OnClick
-        UsernameEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-        UsernameEditText.setText("");
-            }
-        });
-
-        //Clear PasswordEditText OnClick
-        PasswordEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {PasswordEditText.setText("");
-            }
-        });
-
-        //Clear EmailEditText OnClick
-        EmailEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EmailEditText.setText("");
-            }
-        });
-
-        //Clear CityEditText OnClick
-        CityEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CityEditText.setText("");
-            }
-        });
-
-        //Clear DateEditText OnClick
-        DateEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DateEditText.setText("");
-            }
-        });
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> GenderAdapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        GenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        GenderSpinner.setAdapter(GenderAdapter);
     }
 
 
