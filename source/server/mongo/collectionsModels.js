@@ -4,6 +4,8 @@ var dbModels = {};
 dbModels.Users = mongoose.model("user", mongoose.Schema({
 	username: {type : String, required: true},
  	password: {type : String},
+ 	token: {type : String},
+ 	tokenSecret: {type : String},
 	mail: {type : String},
 	birthDate : {type : Date},
 	city : {type : String},

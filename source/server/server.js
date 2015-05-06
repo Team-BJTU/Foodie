@@ -81,7 +81,7 @@ passport.use(new TwitterStrategy({
         models.Users.find({token: token, tokenSecret: tokenSecret}, function(err, docs) {
             if (err) {
                 return (done(null, null));
-            } else if (docs && docs.lenght > 0) {
+            } else if (docs && docs.length > 0) {
                 var user = docs[0];
                 user.id = user._id;
                 return (done(null, user));
@@ -163,6 +163,15 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/error'
 }));
+
+app.get('/logout', function(req, res) {
+    if (req.user) {
+        req.logout();
+        res.redirect('/');
+    } else {
+        res.status(403).send('Forbidden');
+    }
+});
 
 app.get('/auth/info', function(req, res) {
     if (req.user) {
