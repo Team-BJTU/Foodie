@@ -1,6 +1,23 @@
 var mongoose = require("mongoose");
 var dbModels = {};
-
+/*
+dbModels.Users = mongoose.model("user", mongoose.Schema({
+	username: {type : String, required: true},
+ 	password: {type : String},
+	mail: {type : String},
+	birthDate : {type : Date},
+	city : {type : String},
+	last_long : Number,
+	last_lat : Number,
+	is_active : {type: Boolean, default: true},
+	is_admin : {type: Boolean, default: false},
+	picture_path : String,
+	sexe: {type: String, default : "M"},
+	last_login: {type : Date, default : Date.now},
+	date_created : {type : Date, default : Date.now},
+	date_updated: {type: Date, default: Date.now}
+}));
+*/
 dbModels.Users = mongoose.model("user", mongoose.Schema({
 	username: {type : String, required: true},
  	password: {type : String, required : true},

@@ -2,6 +2,7 @@ var debug = require('debug')('server');
 var express = require('express');
 var session = require('express-session');
 var passport = require('passport');
+// var TwitterStrategy = require('passport-twitter').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var path = require('path');
 var favicon = require('static-favicon');
@@ -20,6 +21,7 @@ var momentums = require('./routes/momentums');
 var medias = require('./routes/medias');
 // var meals = require('./routes/meals');
 // var pictures = require('./routes/pictures');
+
 
 process.env.dbUrl = "mongodb://" + process.env.npm_package_database_host + "/" + process.env.npm_package_database_dbname;
 mongoose.connect(process.env.dbUrl);
@@ -42,6 +44,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+var TWITTER_CONSUMER_KEY = "AcaRiONag66pCrDaYg6m6iDrK"
+var TWITTER_CONSUMER_SECRET = "1ZDozaYSRInUVQESgBpcCPPQwxYbSwCIUuxnielqUWL0dZPjyu";
+var TWITTER_TOKEN = "1304659981-sTDXn6RKGHftxKgtmlJLdpvQUurdtr5geGqfQ6b";
+var TWITTER_TOKEN_KEY = "HQvbTlnWXk3hURQv25kB1sgMuxoz8eI3tNooSUs8AlZbB";
+
+
 /* Passport initialisation for Local Authentification */
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -57,12 +65,39 @@ passport.use(new LocalStrategy(
   }
 ));
 
+/*
+passport.use(new TwitterStrategy({
+    consumerKey: TWITTER_CONSUMER_KEY,
+    consumerSecret: TWITTER_CONSUMER_SECRET,
+    token : TWITTER_TOKEN,
+    tokenSecret : TWITTER_TOKEN_KEY,
+    callbackURL: "http://localhost:3000/auth/twitter/callback"
+    }, function(token, tokenSecret, profile, done) {
+        var userTwitter = profile._json;
+        userTwitter.username = profile._json.screen_name;
+        userTwitter.token = token;
+        userTwitter.tokenSecret = tokenSecret;
+        userTwitter.provider = 'twitter';
+        userTwitter.picture_path = profile._json.profile_image_url;
+        userTwitter.id = token + tokenSecret;
+        userTwitter._id = token + tokenSecret;
+        models.Users.update({token: token, tokenSecret: tokenSecret}, userTwitter, {upsert: true}, function(error, response) {
+            if (error) {
+                return  done(null, null);
+            } else {
+                return done(null, userObject);
+            }
+        });
+    }
+));
+*/
+
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-    models.Users.findById(id, function(err, user){
+    models.Users.findById(id, function(err, user) {
         done(err, user);
     });
 });
@@ -159,5 +194,12 @@ app.use(function(err, req, res, next) {
     });
 });
 
+/*
+app.get('/auth/local', passport.passport.authenticate('twitter'));
+app.get('/auth/twitter/callback', auth.passport.authenticate('twitter', {
+    successReturnToOrRedirect: '/',
+    failureRedirect: '/'
+}));
+*/
 
 module.exports = app;
