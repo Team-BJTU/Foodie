@@ -22,8 +22,8 @@ var medias = require('./routes/medias');
 // var meals = require('./routes/meals');
 // var pictures = require('./routes/pictures');
 
-process.env.dbUrl = "mongodb://localhost:27017/foodies";
-//process.env.dbUrl = "mongodb://" + process.env.npm_package_database_host + "/" + process.env.npm_package_database_dbname;
+//process.env.dbUrl = "mongodb://localhost:27017/foodies";
+process.env.dbUrl = "mongodb://" + process.env.npm_package_database_host + "/" + process.env.npm_package_database_dbname;
 mongoose.connect(process.env.dbUrl);
 
 var db = mongoose.connection;
