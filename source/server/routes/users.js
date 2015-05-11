@@ -30,8 +30,6 @@ router.post('/login',  function(req, res, next) {
       userUtils.updateUser(req.models.Users, req.user._id, {last_login : Date.now}, function(err, row) {
  			return ;
       });
-      delete user["password"];
-      // Delete password / is_admin / is_active
       return res.send(200, user);
     });
   })(req, res, next);
@@ -42,7 +40,7 @@ router.get('/logout', function(req, res) {
 	if (!req.user)
 		return res.send(400, {error : "No user logged in."});
 	req.logout();
-	return res.send(200, {message : "You are not logged out."});
+	return res.send(200, {message : "You are now logged out."});
 });
 
 /* PUT update info of user with _id = :id */
@@ -68,7 +66,9 @@ router.put('/update/:id', function(req, res)
 router.get('/profil/me', function(req, res){
 	// Delete password / is_admin / is_active
 	if (req.user)
- 		return res.send(200, req.user);
+	{
+	 	return res.send(200, req.user);
+ 	}
  	else
  		return res.send(400, {error: "No user currently logged in."});
 });

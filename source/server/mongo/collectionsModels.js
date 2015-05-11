@@ -87,7 +87,7 @@ dbModels.Pictures = mongoose.model("picture", mongoose.Schema({
 	target_id: {type : String, required: true},
 	target_type: {type: String, required: true},
 	user_id : {type: String, required: true},
-	date_created : { type : Date, default : Date.now },
+	date_created : { type : Date, default : Date.now }, 
 }));
 
 dbModels.Momentums = mongoose.model("momentum", mongoose.Schema({
@@ -95,8 +95,9 @@ dbModels.Momentums = mongoose.model("momentum", mongoose.Schema({
 	restaurant_id: { type : String, required : true},
 	title: { type : String, required : true},
 	content: { type : String, required : true},
-	mark: { type : Number, required : true},
-	date: { type : Date, default: Date.now }
+	mark: { type: Number, required : true},
+	date_created: { type : Date, default: Date.now },
+	date_updated: {type : Date, default: Date.now}
 }));
 
 dbModels.MealTags = mongoose.model("mealTag", mongoose.Schema({
