@@ -1,9 +1,11 @@
 var mongoose = require("mongoose");
 var dbModels = {};
-/*
+
 dbModels.Users = mongoose.model("user", mongoose.Schema({
 	username: {type : String, required: true},
  	password: {type : String},
+ 	token: {type : String},
+ 	tokenSecret: {type : String},
 	mail: {type : String},
 	birthDate : {type : Date},
 	city : {type : String},
@@ -17,7 +19,7 @@ dbModels.Users = mongoose.model("user", mongoose.Schema({
 	date_created : {type : Date, default : Date.now},
 	date_updated: {type: Date, default: Date.now}
 }));
-*/
+/*
 dbModels.Users = mongoose.model("user", mongoose.Schema({
 	username: {type : String, required: true},
  	password: {type : String, required : true},
@@ -34,7 +36,7 @@ dbModels.Users = mongoose.model("user", mongoose.Schema({
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
 }));
-
+*/
 dbModels.Restaurants = mongoose.model("restaurant", mongoose.Schema({
 	name: {type: String, required: true},
 	mail: {type: String, required: true},
