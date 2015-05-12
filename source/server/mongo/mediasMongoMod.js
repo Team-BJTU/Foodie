@@ -5,13 +5,12 @@ module.exports.addMedia = function(models, params, files, req, callback) {
 		if (err)
 			return callback(err);
 		else if (row.length == 0)
-			return callback({message : "Target doesn't not exist."});
+			return callback("Target doesn't not exist.");
 		else if (row[0].user_id != req.user._id && req.user.is_admin != true)
-			return callback({message : "Permission denied."});
+			return callback("Permission denied.");
 
-		var messageString = "Failed to upload";
-		var failed = false;
 		var filePending = Object.keys(files).length;
+		var onSuccess = [];
 		for (key in files)
 		{
 			var file = files[key];
@@ -25,15 +24,15 @@ module.exports.addMedia = function(models, params, files, req, callback) {
 					/*
 						TODO delete file row.path
 					*/
-					if (failed == false)
-						messageString += " "  + row1.name;
-					else
-						messageString += ", " + row1.name;
-					failed = true;
+					onSuccess.push({error : err1});
 				}
+				else
+					onSuccess.push(row1);
 				filePending -= 1;
 				if (filePending == 0)
-					return failed == true ? callback({message : messageString + "."}) : callback(null, "Operation successful.");
+				{				
+					return callback(null, onSuccess);
+				};
 			});
 		}
 	});
@@ -90,10 +89,10 @@ module.exports.deleteMedia = function(models, params, req, callback)
 		{
 			if (params.target_type && params.target_type == "Users" && req.user.picture_path)
 				return dbAction.Update(models.Users, req.user._id, {picture_path: null}, callback);
-			return (callback({message : "Target not found."}));
+			return (callback("Target not found."));
 		}
 		if (row[0].user_id != req.user._id && req.user.is_admin != true)
-			return (callback({message : "Permission denied."}));
+			return (callback("Permission denied."));
 		else
 		{
 			/*

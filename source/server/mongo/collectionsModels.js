@@ -3,6 +3,25 @@ var dbModels = {};
 
 dbModels.Users = mongoose.model("user", mongoose.Schema({
 	username: {type : String, required: true},
+ 	password: {type : String},
+ 	token: {type : String},
+ 	tokenSecret: {type : String},
+	mail: {type : String},
+	birthDate : {type : Date},
+	city : {type : String},
+	last_long : Number,
+	last_lat : Number,
+	is_active : {type: Boolean, default: true},
+	is_admin : {type: Boolean, default: false},
+	picture_path : String,
+	sexe: {type: String, default : "M"},
+	last_login: {type : Date, default : Date.now},
+	date_created : {type : Date, default : Date.now},
+	date_updated: {type: Date, default: Date.now}
+}));
+/*
+dbModels.Users = mongoose.model("user", mongoose.Schema({
+	username: {type : String, required: true},
  	password: {type : String, required : true},
 	mail: {type : String, required : true},
 	birthDate : {type : Date, required : true},
@@ -17,7 +36,7 @@ dbModels.Users = mongoose.model("user", mongoose.Schema({
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
 }));
-
+*/
 dbModels.Restaurants = mongoose.model("restaurant", mongoose.Schema({
 	name: {type: String, required: true},
 	mail: {type: String, required: true},
@@ -35,10 +54,10 @@ dbModels.Restaurants = mongoose.model("restaurant", mongoose.Schema({
 }));
 
 dbModels.Reservations = mongoose.model("reservation", mongoose.Schema({
-	restaurant_id: { type: String, required: true },
-	user_id: { type: String, required: true },
+	restaurant_id: String,
+	user_id: String,
 	nbPeople: Number,
-	date: { type: Date, required: true },
+	date: Date,
 	validated: Boolean,
 	date_created : { type : Date, default : Date.now },
 	date_updated: { type: Date, default: Date.now }
@@ -70,7 +89,7 @@ dbModels.Pictures = mongoose.model("picture", mongoose.Schema({
 	target_id: {type : String, required: true},
 	target_type: {type: String, required: true},
 	user_id : {type: String, required: true},
-	date_created : { type : Date, default : Date.now },
+	date_created : { type : Date, default : Date.now }, 
 }));
 
 dbModels.Momentums = mongoose.model("momentum", mongoose.Schema({
@@ -78,8 +97,9 @@ dbModels.Momentums = mongoose.model("momentum", mongoose.Schema({
 	restaurant_id: { type : String, required : true},
 	title: { type : String, required : true},
 	content: { type : String, required : true},
-	mark: { type : Number, required : true},
-	date: { type : Date, default: Date.now }
+	mark: { type: Number, required : true},
+	date_created: { type : Date, default: Date.now },
+	date_updated: {type : Date, default: Date.now}
 }));
 
 dbModels.MealTags = mongoose.model("mealTag", mongoose.Schema({

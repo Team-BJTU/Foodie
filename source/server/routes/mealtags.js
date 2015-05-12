@@ -7,6 +7,7 @@ var mealtagsUtils = require("../mongo/mealtagsMongoMod");
 router.post('/new', function(req, res){
 	if (!req.user)
 		return res.send(400, {error : {message: "You must be logged"}});
+	req.body["user_id"] = req.user_id;
 	mealtagsUtils.addMealTag(req.models, req.body, function(err, row) {
 		if (err)
 			return res.send(400, {error: err});
@@ -18,7 +19,7 @@ router.post('/new', function(req, res){
 router.get('momentum/:id', function(req, res)
 {
 	if (!req.user)
-		return res.send(400, {error : {message: "You must be logged"}});
+		return res.send(400, {error : {message: "You must be logged"}});	
 	mealtagsUtils.getMealTags(req.models.MealTags, {momentum_id: req.params.id}, function(err, row) {
 		if (err)
 			return res.send(400, {error: err});

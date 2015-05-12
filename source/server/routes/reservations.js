@@ -32,7 +32,7 @@ router.get("/id/:resa_id", function(req, res) {
 	});
 });
 
-router.get("/userId/:user_id", function(req, res) {
+router.get("/UserId/:user_id", function(req, res) {
 	mongoResa.getReservationsByUserId(req.models.Reservations, req.params.user_id, function (err, rows) {
 		if (err) return res.send(400, {error: err});
 		rows.forEach(function (item, index, array) {
@@ -49,7 +49,7 @@ router.get("/userId/:user_id", function(req, res) {
 	});
 });
 
-router.get("/restId/:rest_id", function(req, res) {
+router.get("/RestId/:rest_id", function(req, res) {
 	mongoResa.getReservationsByRestaurantId(req.models.Reservations, req.params.rest_id, function (err, rows) {
 		if (err) return res.send(400, {error: err});
 		return res.send(200, {message: "success", reservations: rows});
