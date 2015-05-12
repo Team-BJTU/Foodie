@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoResa= require("../mongo/reservationsMongoMod");
+var mongoRest= require("../mongo/restaurantsMongoMod");
 
 /// POST REQUEST
 router.post("/new", function(req, res) {
@@ -22,14 +23,29 @@ router.get("/all", function(req, res) {
 router.get("/id/:resa_id", function(req, res) {
 	mongoResa.getReservationById(req.models.Reservations, req.params.resa_id, function (err, row) {
 		if (err) return res.send(400, {error: err});
-		return res.send(200, {message: "success", reservation: row});
+		mongoRest.getRestaurantById(req.models.Restaurants, row.restaurant_id, function (err, result) {
+			if (err) return res.send(400, {error: err});
+			delete row.restaurant_id;
+			row.restaurant = result;
+			return res.send(200, {message: "success", reservation: row});
+		});
 	});
 });
 
 router.get("/userId/:user_id", function(req, res) {
 	mongoResa.getReservationsByUserId(req.models.Reservations, req.params.user_id, function (err, rows) {
 		if (err) return res.send(400, {error: err});
-		return res.send(200, {message: "success", reservations: rows});
+		rows.forEach(function (item, index, array) {
+			if (!item.restaurant_id)
+				continue
+			mongoRest.getRestaurantById(req.models.Restaurants, item.restaurant_id, function (err, row) {
+				if (err) return res.send(400, {error: err});
+				delete array[index].restaurant_id;
+				array[index].restaurant = row;
+				if (index + 1 == array.length)
+					return res.send(200, {message: "success", reservations: rows});
+			});
+		});
 	});
 });
 
