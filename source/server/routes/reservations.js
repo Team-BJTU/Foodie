@@ -36,15 +36,15 @@ router.get("/UserId/:user_id", function(req, res) {
 	mongoResa.getReservationsByUserId(req.models.Reservations, req.params.user_id, function (err, rows) {
 		if (err) return res.send(400, {error: err});
 		rows.forEach(function (item, index, array) {
-			if (!item.restaurant_id)
-				continue
-			mongoRest.getRestaurantById(req.models.Restaurants, item.restaurant_id, function (err, row) {
-				if (err) return res.send(400, {error: err});
-				delete array[index].restaurant_id;
-				array[index].restaurant = row;
-				if (index + 1 == array.length)
-					return res.send(200, {message: "success", reservations: rows});
-			});
+			if (item.restaurant_id) {
+				mongoRest.getRestaurantById(req.models.Restaurants, item.restaurant_id, function (err, row) {
+					if (err) return res.send(400, {error: err});
+					delete array[index].restaurant_id;
+					array[index].restaurant = row;
+					if (index + 1 == array.length)
+						return res.send(200, {message: "success", reservations: rows});
+				});				
+			}
 		});
 	});
 });
