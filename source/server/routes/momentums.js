@@ -35,6 +35,17 @@ router.get('/user', function(req, res) {
 	});
 });
 
+/* GET momentum where user_id == :id :id/:order/:nb_page'*/
+router.get('/user/:id', function(req, res) {
+	if (!req.user)
+		return res.send(400, {error :"You must be logged in."});	
+	momentumsUtils.getMultipleMomentums(req.models, {user_id : req.params.id}, function(err, row) {
+		if (err)
+			return res.send(400, {error: err});
+		row["message"] = "Operation sucessful";
+		return res.send(200, row);
+	});
+});
 
 /* GET momentum with _id == :id */
 router.get('/:id', function(req, res)

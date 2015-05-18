@@ -72,7 +72,7 @@ module.exports.getMultipleMomentums = function(models, params, callback)
 	dbAction.Get(models.Momentums, params, function(err, row) {
 		if (err)
 			return callback(err);
-		if (row.length == 0)
+		if (Object.keys(row).length == 0)
 			return callback("No momentum found.");
 		var offset = 0;
 		var length = row.length;
