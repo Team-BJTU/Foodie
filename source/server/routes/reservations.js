@@ -33,16 +33,20 @@ router.get("/id/:resa_id", function(req, res) {
 });
 
 router.get("/UserId/:user_id", function(req, res) {
+	var iterator = 0;
 	mongoResa.getReservationsByUserId(req.models.Reservations, req.params.user_id, function (err, rows) {
 		if (err) return res.send(400, {error: err});
 		rows.forEach(function (item, index, array) {
 			if (item.restaurant_id) {
 				mongoRest.getRestaurantById(req.models.Restaurants, item.restaurant_id, function (err, row) {
-					if (err) return res.send(400, {error: err});
+					if (err) { return res.send(400, {error: err}); }
 					delete array[index].restaurant_id;
 					array[index].restaurant = row;
-					if (index + 1 == array.length)
+					++iterator;
+					if (iterator == array.length) {
+						console.log('rows', rows, 'array', array);
 						return res.send(200, {message: "success", reservations: rows});
+					}
 				});				
 			}
 		});
