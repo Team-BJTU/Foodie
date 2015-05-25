@@ -16,7 +16,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var mealtags = require('./routes/mealtags');
 var restaurants = require('./routes/restaurants');
-// var reservations = require('./routes/reservations');
+var reservations = require('./routes/reservations');
 var momentums = require('./routes/momentums');
 var medias = require('./routes/medias');
 // var meals = require('./routes/meals');
@@ -187,9 +187,9 @@ app.use('/restaurants', restaurants);
 app.use('/mealtags', mealtags);
 app.use('/momentums', momentums);
 app.use('/media', medias);
-/*app.use('/reservations', reservations);
+app.use('/reservations', reservations);
 
-
+/*
 app.use('/meals', meals);
 app.use('/picures', picures);
 */

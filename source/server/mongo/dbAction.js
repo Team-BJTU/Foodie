@@ -84,7 +84,7 @@ module.exports.getById = function(model, id, callback) {
 	module.exports.Get(model, {_id: id}, function (err, result) {
 		if (err)
 			return callback(err);
-		if (result.length > 0)
+		if (result.length > 1)
 			return callback("Problem in the database (multiple id), please contact the administrator");
 		return callback(err, result);
 	});
